@@ -1,0 +1,12 @@
+###
+POST localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "jjj0611",
+  "password": "password",
+  "name": "장재주"
+}
+
+###
+GET localhost:8080/users/1

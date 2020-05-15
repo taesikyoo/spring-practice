@@ -40,5 +40,12 @@ public class User {
     public void updatePassword(String password) {
         this.password = password;
     }
+
+    public void update(User userToUpdate) {
+        this.id = userToUpdate.id;
+        this.email = userToUpdate.email;
+        this.password = userToUpdate.password;
+        this.name = userToUpdate.name;
+    }
 }
 
