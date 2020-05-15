@@ -1,5 +1,7 @@
 package org.backend.master.springpractice.user.controller;
 
+import java.util.List;
+
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
 import org.backend.master.springpractice.user.service.UserService;
@@ -21,6 +23,11 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping
+    public ResponseEntity<List<UserResponseDto>> getAll() {
+        return ResponseEntity.ok(userService.readAll());
+    }
 
     @PostMapping
     public ResponseEntity<Long> createUser(@RequestBody UserRequestDto userRequestDto) {
