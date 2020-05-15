@@ -11,7 +11,10 @@ public class UserTest {
 
     @BeforeEach
     void setUp() {
-        user = User.of("jjj0611@daum.net", "password", "장재주");
+        user = User.builder()
+            .email("jjj0611@daum.net")
+            .password("password")
+            .name("장재주").build();
     }
 
     @Test
