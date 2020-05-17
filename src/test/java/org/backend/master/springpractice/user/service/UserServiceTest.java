@@ -8,6 +8,7 @@ import static org.mockito.BDDMockito.*;
 import java.util.Optional;
 
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
+import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
 import org.backend.master.springpractice.user.domain.User;
 import org.backend.master.springpractice.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,10 +46,9 @@ class UserServiceTest {
         User user = getUserFixture();
         given(userRepository.findById(anyLong())).willReturn(Optional.of(user));
 
-        User foundUser = userService.findById(1L);
+        UserResponseDto foundUser = userService.readUserBy(1L);
 
         assertThat(foundUser.getEmail()).isEqualTo("jjj0611@daum.net");
-        assertThat(foundUser.getPassword()).isEqualTo("password");
         assertThat(foundUser.getName()).isEqualTo("장재주");
     }
 
@@ -77,7 +77,7 @@ class UserServiceTest {
 
         userService.deleteById(1L);
 
-        assertThatThrownBy(() -> userService.findById(1L))
+        assertThatThrownBy(() -> userService.readUserBy(1L))
             .isInstanceOf(IllegalArgumentException.class);
     }
 }
