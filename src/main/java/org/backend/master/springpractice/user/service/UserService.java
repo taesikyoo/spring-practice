@@ -5,9 +5,10 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpSession;
 
-import org.backend.master.springpractice.user.controller.LoginRequest;
+import org.backend.master.springpractice.user.controller.dto.LoginRequest;
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
+import org.backend.master.springpractice.user.controller.dto.UserUpdateRequestDto;
 import org.backend.master.springpractice.user.domain.User;
 import org.backend.master.springpractice.user.repository.UserRepository;
 import org.backend.master.springpractice.user.util.PasswordEncryptor;
@@ -40,10 +41,10 @@ public class UserService {
         return UserResponseDto.from(findById(id));
     }
 
-    public void updateById(Long id, UserRequestDto userRequestDto) {
-        User userToUpdate = userRequestDto.toEntity();
+    public void updateById(Long id, UserUpdateRequestDto userUpdateRequestDto) {
         User user = findById(id);
-        user.update(userToUpdate);
+        String encryptedPassword = PasswordEncryptor.encrypt(userUpdateRequestDto.getPassword());
+        user.update(encryptedPassword, userUpdateRequestDto.getName());
         userRepository.save(user);
     }
 

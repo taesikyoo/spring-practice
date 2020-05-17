@@ -1,4 +1,4 @@
-package org.backend.master.springpractice.user.controller;
+package org.backend.master.springpractice.user.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

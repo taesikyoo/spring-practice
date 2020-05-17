@@ -41,11 +41,9 @@ public class User {
         this.password = password;
     }
 
-    public void update(User userToUpdate) {
-        this.id = userToUpdate.id;
-        this.email = userToUpdate.email;
-        this.password = userToUpdate.password;
-        this.name = userToUpdate.name;
+    public void update(String password, String name) {
+        this.password = password;
+        this.name = name;
     }
 
     public boolean matchPassword(String encryptedPassword) {

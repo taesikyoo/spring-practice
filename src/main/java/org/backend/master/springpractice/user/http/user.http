@@ -11,13 +11,23 @@ Content-Type: application/json
 ###
 GET localhost:8080/users/1
 
+
+###
+PUT localhost:8080/users/1
+Content-Type: application/json
+
+{
+  "password": "password2",
+  "name": "장재주2"
+}
+
 ###
 POST localhost:8080/users/login
 Content-Type: application/json
 
 {
   "email": "jjj0611",
-  "password": "password"
+  "password": "password2"
 }
 
 ###

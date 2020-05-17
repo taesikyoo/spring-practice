@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
+import org.backend.master.springpractice.user.controller.dto.UserUpdateRequestDto;
 import org.backend.master.springpractice.user.domain.User;
 import org.backend.master.springpractice.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,20 +55,18 @@ class UserServiceTest {
 
     @Test
     void update() {
-        UserRequestDto userRequestDto = new UserRequestDto("jjj0611@kiworkshop.org", "password2",
-            "재주");
+        UserUpdateRequestDto userUpdateRequestDto = new UserUpdateRequestDto("password2", "재주");
         User user = getUserFixture();
         given(userRepository.findById(anyLong())).willReturn(Optional.of(user));
-        userService.updateById(1L, userRequestDto);
+        userService.updateById(1L, userUpdateRequestDto);
     }
 
     @Test
     void update_exception() {
-        UserRequestDto userRequestDto = new UserRequestDto("jjj0611@kiworkshop.org", "password2",
-            "재주");
+        UserUpdateRequestDto userUpdateRequestDto = new UserUpdateRequestDto("password2", "재주");
         User user = getUserFixture();
         given(userRepository.findById(anyLong())).willReturn(Optional.empty());
-        assertThatThrownBy(() -> userService.updateById(1L, userRequestDto))
+        assertThatThrownBy(() -> userService.updateById(1L, userUpdateRequestDto))
             .isInstanceOf(IllegalArgumentException.class);
     }
 

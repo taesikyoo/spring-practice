@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.backend.master.springpractice.user.controller.dto.LoginRequest;
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
+import org.backend.master.springpractice.user.controller.dto.UserUpdateRequestDto;
 import org.backend.master.springpractice.user.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,8 +47,8 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Long id,
-        @RequestBody UserRequestDto userRequestDto) {
-        userService.updateById(id, userRequestDto);
+        @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        userService.updateById(id, userUpdateRequestDto);
         return ResponseEntity.ok().build();
     }
 
