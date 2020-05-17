@@ -2,6 +2,8 @@ package org.backend.master.springpractice.user.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
 import org.backend.master.springpractice.user.service.UserService;
@@ -52,6 +54,18 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<Void> login(HttpSession session, @RequestBody LoginRequest loginRequest) {
+        userService.login(session, loginRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpSession session) {
+        userService.logout(session);
+        return ResponseEntity.ok().build();
     }
 
 }

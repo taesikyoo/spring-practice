@@ -47,5 +47,9 @@ public class User {
         this.password = userToUpdate.password;
         this.name = userToUpdate.name;
     }
+
+    public boolean matchPassword(String encryptedPassword) {
+        return password.equals(encryptedPassword);
+    }
 }
 
