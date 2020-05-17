@@ -26,7 +26,13 @@ public class UserService {
     }
 
     public Long createUser(UserRequestDto userRequestDto) {
-        User user = userRequestDto.toEntity();
+        String encryptedPassword = PasswordEncryptor.encrypt(userRequestDto.getPassword());
+        User user = User.builder()
+            .email(userRequestDto.getEmail())
+            .password(encryptedPassword)
+            .name(userRequestDto.getName())
+            .build();
+
         return userRepository.save(user).getId();
     }
 
