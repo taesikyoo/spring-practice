@@ -1,21 +1,22 @@
 package org.backend.master.springpractice.post.domain;
 
-import java.time.LocalDateTime;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.backend.master.springpractice.like.LikeAction;
+import org.backend.master.springpractice.user.domain.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.util.Assert;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
+@ToString
 @NoArgsConstructor
 @Entity
 public class Post {
@@ -26,13 +27,20 @@ public class Post {
     private String title;
     private String content;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User author;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<LikeAction> likes = new ArrayList<>();
+
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate
     private LocalDateTime lastUpdatedAt;
 
     @Builder
-    private Post(String title, String content) {
+    private Post(String title, String content, User author) {
+        this.author = author;
         Assert.hasLength(title, "title should not be empty");
         Assert.hasLength(content, "content should not be empty");
         this.title = title;
@@ -42,6 +50,10 @@ public class Post {
     public void update(Post postToUpdate) {
         this.title = postToUpdate.title;
         this.content = postToUpdate.content;
+    }
+
+    public void addLike(User user) {
+        likes.add(new LikeAction(this, user));
     }
 }
 

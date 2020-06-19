@@ -1,17 +1,19 @@
 package org.backend.master.springpractice.user.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+import lombok.ToString;
+import org.backend.master.springpractice.post.domain.Post;
 import org.springframework.util.Assert;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @NoArgsConstructor
+@ToString
 @Getter
 @Entity
 public class User {

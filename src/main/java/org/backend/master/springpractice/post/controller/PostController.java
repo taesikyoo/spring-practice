@@ -1,23 +1,16 @@
 package org.backend.master.springpractice.post.controller;
 
-import java.util.List;
-
+import lombok.RequiredArgsConstructor;
 import org.backend.master.springpractice.post.service.PostService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping("/posts")
+@RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
@@ -28,8 +21,14 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createPost(@RequestBody PostRequestDto postRequestDto) {
-        Long id = postService.createPost(postRequestDto);
+    public ResponseEntity<Long> createPost(HttpSession httpSession, @RequestBody PostRequestDto postRequestDto) {
+        Long id = postService.createPost(httpSession, postRequestDto);
+        return ResponseEntity.ok(id);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Long> likePost(HttpSession httpSession, @PathVariable Long id) {
+        postService.likePost(httpSession, id);
         return ResponseEntity.ok(id);
     }
 
@@ -41,7 +40,7 @@ public class PostController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updatePost(@PathVariable Long id,
-        @RequestBody PostRequestDto postRequestDto) {
+                                           @RequestBody PostRequestDto postRequestDto) {
         postService.updatePost(id, postRequestDto);
         return ResponseEntity.ok().build();
     }

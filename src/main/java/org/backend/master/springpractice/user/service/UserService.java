@@ -1,10 +1,6 @@
 package org.backend.master.springpractice.user.service;
 
-import java.util.List;
-import java.util.Objects;
-
-import javax.servlet.http.HttpSession;
-
+import lombok.RequiredArgsConstructor;
 import org.backend.master.springpractice.user.controller.LoginRequest;
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
@@ -13,10 +9,12 @@ import org.backend.master.springpractice.user.repository.UserRepository;
 import org.backend.master.springpractice.user.util.PasswordEncryptor;
 import org.springframework.stereotype.Service;
 
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Objects;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
@@ -74,7 +72,7 @@ public class UserService {
         }
     }
 
-    private User findById(Long id) {
+    User findById(Long id) {
         return userRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 id입니다."));
     }

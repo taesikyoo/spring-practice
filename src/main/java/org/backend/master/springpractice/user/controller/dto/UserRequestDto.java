@@ -1,23 +1,30 @@
 package org.backend.master.springpractice.user.controller.dto;
 
-import org.backend.master.springpractice.user.domain.User;
-
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.backend.master.springpractice.user.domain.User;
+import org.backend.master.springpractice.user.util.PasswordEncryptor;
 
-@AllArgsConstructor
 @Getter
+@NoArgsConstructor
 public class UserRequestDto {
 
     private String email;
     private String password;
     private String name;
 
+    @Builder
+    public UserRequestDto(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
     public User toEntity() {
         return User.builder()
             .email(email)
-            .password(password)
+            .password(PasswordEncryptor.encrypt(password))
             .name(name).build();
     }
-
 }
