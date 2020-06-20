@@ -1,23 +1,15 @@
 package org.backend.master.springpractice.user.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
-
+import lombok.RequiredArgsConstructor;
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
 import org.backend.master.springpractice.user.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import lombok.RequiredArgsConstructor;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -32,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Long> createUser(@RequestBody UserRequestDto userRequestDto) {
+    public ResponseEntity<Long> createUser(@Valid @RequestBody UserRequestDto userRequestDto) {
         Long id = userService.createUser(userRequestDto);
         return ResponseEntity.ok(id);
     }
@@ -45,7 +37,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Long id,
-        @RequestBody UserRequestDto userRequestDto) {
+                                           @RequestBody UserRequestDto userRequestDto) {
         userService.updateById(id, userRequestDto);
         return ResponseEntity.ok().build();
     }

@@ -1,16 +1,30 @@
 package org.backend.master.springpractice.user.domain;
 
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.util.ReflectionUtils;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 public class UserTest {
 
     private User user;
+
+    public static User getUserFixture() {
+        User user = User.builder()
+            .email("jjj0611@daum.net")
+            .password("password")
+            .name("장재주")
+            .build();
+        Field id = ReflectionUtils.findField(User.class, "id");
+        ReflectionUtils.makeAccessible(id);
+        ReflectionUtils.setField(id, user, 1L);
+        return user;
+    }
 
     @BeforeEach
     void setUp() {
@@ -35,15 +49,31 @@ public class UserTest {
         assertThat(user.getPassword()).isEqualTo("password2");
     }
 
-    public static User getUserFixture() {
-        User user = User.builder()
-            .email("jjj0611@daum.net")
-            .password("password")
-            .name("장재주")
-            .build();
-        Field id = ReflectionUtils.findField(User.class, "id");
-        ReflectionUtils.makeAccessible(id);
-        ReflectionUtils.setField(id, user, 1L);
-        return user;
+    @Test
+    @DisplayName("생성자 유효성 검사: 이메일이 null")
+    void CreateValidationEmailNull() {
+        assertThatThrownBy(() -> {
+            User build = User.builder()
+                .email(null)
+                .password("password")
+                .name("name")
+                .build();
+        })
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("email should not be empty");
+    }
+
+    @Test
+    @DisplayName("생성자 유효성 검사: 이메일이 empty String")
+    void CreateValidationEmailEmptyString() {
+        assertThatThrownBy(() -> {
+            User build = User.builder()
+                .email("")
+                .password("password")
+                .name("name")
+                .build();
+        })
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageContaining("email should not be empty");
     }
 }

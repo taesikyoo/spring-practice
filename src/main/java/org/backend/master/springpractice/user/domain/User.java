@@ -1,16 +1,12 @@
 package org.backend.master.springpractice.user.domain;
 
-import javax.persistence.*;
-
-import lombok.ToString;
-import org.backend.master.springpractice.post.domain.Post;
-import org.springframework.util.Assert;
-
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.validator.constraints.Length;
 
-import java.util.List;
+import javax.persistence.*;
 
 @NoArgsConstructor
 @ToString
@@ -21,15 +17,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Length(min = 1)
+    @Column(nullable = false)
     private String email;
+    @Length(min = 1)
+    @Column(nullable = false)
     private String password;
+    @Length(min = 1)
+    @Column(nullable = false)
     private String name;
 
     @Builder
     private User(String email, String password, String name) {
-        Assert.hasLength(email, "email should not be empty");
-        Assert.hasLength(password, "password should not be empty");
-        Assert.hasLength(name, "name should not be empty");
         this.email = email;
         this.password = password;
         this.name = name;

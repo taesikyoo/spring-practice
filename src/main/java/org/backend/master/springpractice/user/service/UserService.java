@@ -8,6 +8,7 @@ import org.backend.master.springpractice.user.domain.User;
 import org.backend.master.springpractice.user.repository.UserRepository;
 import org.backend.master.springpractice.user.util.PasswordEncryptor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -23,6 +24,7 @@ public class UserService {
         return UserResponseDto.listOf(userRepository.findAll());
     }
 
+    @Transactional
     public Long createUser(UserRequestDto userRequestDto) {
         User user = userRequestDto.toEntity();
         return userRepository.save(user).getId();

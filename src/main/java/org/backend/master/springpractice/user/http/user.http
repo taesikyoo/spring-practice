@@ -4,8 +4,7 @@ Content-Type: application/json
 
 {
   "email": "3",
-  "password": "password",
-  "name": "조광일"
+  "password": ""
 }
 
 ###
@@ -16,7 +15,6 @@ POST localhost:8080/users/login
 Content-Type: application/json
 
 {
-  "email": "3",
   "password": "password"
 }
 

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import javax.servlet.http.HttpSession;
 
@@ -122,5 +123,18 @@ class UserServiceTest {
 
         Long user = userService.createUser(userRequestDto);
         assertThat(user).isNotNull();
+    }
+
+    @Test
+    @DisplayName("[유효성검사] 이메일이 존재하지 않을 때")
+    void emailNotExists() {
+        UserRequestDto userRequestDto = UserRequestDto.builder()
+            .email(null)
+            .password("password")
+            .name("name")
+            .build();
+
+        assertThatThrownBy(() -> userService.createUser(userRequestDto))
+            .isInstanceOf(DataIntegrityViolationException.class);
     }
 }

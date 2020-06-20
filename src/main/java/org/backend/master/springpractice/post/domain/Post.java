@@ -40,7 +40,6 @@ public class Post {
 
     @Builder
     private Post(String title, String content, User author) {
-        this.author = author;
         Assert.hasLength(title, "title should not be empty");
         Assert.hasLength(content, "content should not be empty");
         this.title = title;
