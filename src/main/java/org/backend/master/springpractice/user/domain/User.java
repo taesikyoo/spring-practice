@@ -4,9 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @NoArgsConstructor
 @ToString
@@ -17,15 +19,8 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Length(min = 1)
-    @Column(nullable = false)
     private String email;
-    @Length(min = 1)
-    @Column(nullable = false)
     private String password;
-    @Length(min = 1)
-    @Column(nullable = false)
     private String name;
 
     @Builder

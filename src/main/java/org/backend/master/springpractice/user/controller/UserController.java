@@ -1,16 +1,20 @@
 package org.backend.master.springpractice.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.backend.master.springpractice.user.controller.dto.UserPageRequest;
 import org.backend.master.springpractice.user.controller.dto.UserRequestDto;
 import org.backend.master.springpractice.user.controller.dto.UserResponseDto;
+import org.backend.master.springpractice.user.domain.User;
 import org.backend.master.springpractice.user.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
@@ -19,8 +23,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> getAll() {
-        return ResponseEntity.ok(userService.readAll());
+    public Page<User> getUsers(UserPageRequest userPageRequest) {
+        return userService.getUsers(userPageRequest.getPageable());
     }
 
     @PostMapping

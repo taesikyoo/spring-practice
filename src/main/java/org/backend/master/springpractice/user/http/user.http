@@ -3,12 +3,12 @@ POST localhost:8080/users
 Content-Type: application/json
 
 {
-  "email": "3",
-  "password": ""
+  "email": "naruto@namutip.mauel",
+  "password": "naruto"
 }
 
 ###
-GET localhost:8080/users
+GET localhost:8080/users?page=1&size=2
 
 ###
 POST localhost:8080/users/login

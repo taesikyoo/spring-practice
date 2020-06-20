@@ -6,16 +6,13 @@ import lombok.NoArgsConstructor;
 import org.backend.master.springpractice.user.domain.User;
 import org.backend.master.springpractice.user.util.PasswordEncryptor;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor
 public class UserRequestDto {
 
-    @NotNull
-    @Min(1)
+    @NotBlank
     private String email;
     @NotBlank
     private String password;
