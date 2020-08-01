@@ -33,6 +33,9 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<LikeAction> likes = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
+
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate

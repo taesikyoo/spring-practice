@@ -22,6 +22,8 @@ public class User {
     private String email;
     private String password;
     private String name;
+    private String pictureUrl;
+    private boolean active;
 
     @Builder
     private User(String email, String password, String name) {
