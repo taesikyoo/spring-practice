@@ -3,8 +3,8 @@ POST localhost:8080/users
 Content-Type: application/json
 
 {
-  "email": "naruto@namutip.mauel",
-  "password": "naruto"
+  "email": "naruto@namutip.mauel2",
+  "password": "naruto2"
 }
 
 ###
@@ -15,12 +15,13 @@ POST localhost:8080/users/login
 Content-Type: application/json
 
 {
-  "password": "password"
+  "email": "naruto@namutip.mauel2",
+  "password": "naruto2"
 }
 
 
-###
-POST http://localhost:8080/posts/2
+### like
+POST http://localhost:8080/posts/1
 Content-Type: application/json
 
 ###
@@ -28,12 +29,37 @@ POST localhost:8080/posts
 Content-Type: application/json
 
 {
-  "title": "jjj0612",
-  "content": "password"
+  "title": "hello",
+  "content": "world"
 }
 
 ###
-GET http://localhost:8080/posts/2
+GET http://localhost:8080/posts/1
 
 ###
 GET http://localhost:8080/posts
+
+###
+POST localhost:8080/posts/1/comments/add
+Content-Type: application/json
+
+{
+  "content": "comment"
+}
+
+###
+GET localhost:8080/posts/1/comments
+
+###
+PUT localhost:8080/comments/1/edit
+Content-Type: application/json
+
+{
+  "content": "수정되었습니다."
+}
+
+###
+POST localhost:8080/users/logout
+
+###
+DELETE localhost:8080/comments/2/delete

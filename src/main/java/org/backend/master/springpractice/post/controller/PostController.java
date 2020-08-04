@@ -1,6 +1,10 @@
 package org.backend.master.springpractice.post.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.backend.master.springpractice.comment.controller.CommentRequest;
+import org.backend.master.springpractice.comment.controller.CommentResponse;
+import org.backend.master.springpractice.comment.service.CommentService;
+import org.backend.master.springpractice.post.domain.Post;
 import org.backend.master.springpractice.post.service.PostService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +18,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final CommentService commentService;
 
     @GetMapping
     public ResponseEntity<List<PostResponseDto>> getAll() {
@@ -51,4 +56,15 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{id}/comments/add")
+    public CommentResponse addComment(HttpSession httpSession, @PathVariable Long id, @RequestBody CommentRequest request) {
+        Post post = postService.findById(id);
+        return commentService.create(httpSession, post, request);
+    }
+
+    @GetMapping("/{id}/comments")
+    public List<CommentResponse> getCommentsByPost(@PathVariable Long id) {
+        Post post = postService.findById(id);
+        return commentService.getAll(post);
+    }
 }

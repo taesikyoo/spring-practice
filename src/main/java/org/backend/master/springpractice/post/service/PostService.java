@@ -70,7 +70,7 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    private Post findById(Long id) {
+    public Post findById(Long id) {
         Post post = postRepository.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 post입니다."));
         return post;

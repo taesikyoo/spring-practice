@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.backend.master.springpractice.comment.domain.Comment;
 import org.backend.master.springpractice.like.LikeAction;
 import org.backend.master.springpractice.user.domain.User;
 import org.springframework.data.annotation.CreatedDate;
@@ -47,6 +48,7 @@ public class Post {
         Assert.hasLength(content, "content should not be empty");
         this.title = title;
         this.content = content;
+        this.author = author;
     }
 
     public void update(Post postToUpdate) {
