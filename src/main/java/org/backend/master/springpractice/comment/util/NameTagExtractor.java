@@ -1,38 +1,16 @@
 package org.backend.master.springpractice.comment.util;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class NameTagExtractor {
 
     public static List<String> extractNameTags(String content) {
-        Pattern p = Pattern.compile("#([0-9a-zA-Z가-힣]*)");
-        Matcher m = p.matcher(content);
-        List<String> nameTags = new ArrayList<>();
+        List<String> words = Arrays.asList(content.split(" "));
+        List<String> tags = words.stream().filter(word -> word.startsWith("@")).collect(Collectors.toList());
+        tags.replaceAll(tag -> tag.replaceFirst("@", ""));
 
-        while(m.find()) {
-            String nameTag = findNameTag(m.group());
-
-            if( nameTag != null) {
-                nameTags.add(nameTag);
-                System.out.println("이름태그 : " + nameTag);
-            }
-        }
-
-        return nameTags;
-    }
-
-    public static String findNameTag(String str) {
-       str = StringUtils.replaceChars(str, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~`） ","");
-
-        if(str.length() < 1) {
-            return null;
-        }
-
-        return str;
+        return tags;
     }
 }

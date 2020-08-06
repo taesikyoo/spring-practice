@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -83,5 +84,9 @@ public class UserService {
     private User findByEmail(String email) {
         return userRepository.findByEmail(email)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 email입니다."));
+    }
+
+    public List<User> findUsersByName(List<String> userNames) {
+        return userRepository.findByNameIn(userNames);
     }
 }
