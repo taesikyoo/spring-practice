@@ -44,7 +44,7 @@ POST localhost:8080/posts/1/comments/add
 Content-Type: application/json
 
 {
-  "content": "comment"
+  "content": "#comment #123 #유태식#오태식 안녕하세요."
 }
 
 ###
@@ -62,4 +62,4 @@ Content-Type: application/json
 POST localhost:8080/users/logout
 
 ###
-DELETE localhost:8080/comments/2/delete
+DELETE localhost:8080/comments/1/delete

@@ -5,6 +5,7 @@ import org.backend.master.springpractice.comment.controller.CommentRequest;
 import org.backend.master.springpractice.comment.controller.CommentResponse;
 import org.backend.master.springpractice.comment.domain.Comment;
 import org.backend.master.springpractice.comment.repository.CommentRepository;
+import org.backend.master.springpractice.comment.util.NameTagExtractor;
 import org.backend.master.springpractice.post.domain.Post;
 import org.backend.master.springpractice.user.domain.User;
 import org.springframework.stereotype.Service;
@@ -62,14 +63,17 @@ public class CommentService {
     private void validateLoginUser(HttpSession httpSession, Comment comment) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
         User author = comment.getAuthor();
-        if(loginUser == null) throw new IllegalArgumentException("로그인하지 않은 사용자입니다.");
-        if(!(author.getId().equals(loginUser.getId()))) throw new IllegalArgumentException("comment를 삭제할 권한이 없습니다.");
+        if (loginUser == null) throw new IllegalArgumentException("로그인하지 않은 사용자입니다.");
+        if (!(author.getId().equals(loginUser.getId()))) throw new IllegalArgumentException("comment를 삭제할 권한이 없습니다.");
     }
 
     private CommentResponse getCommentResponse(Comment comment) {
+        List<String> nameTags = NameTagExtractor.extractNameTags(comment.getContent());
+
         return CommentResponse.builder()
                 .id(comment.getId())
                 .content(comment.getContent())
+                .nameTags(nameTags)
                 .authorName(comment.getAuthor().getName())
                 .postId(comment.getPost().getId())
                 .createdAt(comment.getCreatedAt())

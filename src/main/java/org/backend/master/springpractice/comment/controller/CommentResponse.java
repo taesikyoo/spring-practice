@@ -3,9 +3,9 @@ package org.backend.master.springpractice.comment.controller;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.backend.master.springpractice.post.controller.PostResponseDto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -13,15 +13,17 @@ public class CommentResponse {
 
     private Long id;
     private String content;
+    private List<String> nameTags;
     private String authorName;
     private Long postId;
     private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
 
     @Builder
-    public CommentResponse(Long id, String content, String authorName, Long postId , LocalDateTime createdAt, LocalDateTime lastUpdatedAt) {
+    public CommentResponse(Long id, String content, List<String> nameTags, String authorName, Long postId, LocalDateTime createdAt, LocalDateTime lastUpdatedAt) {
         this.id = id;
         this.content = content;
+        this.nameTags = nameTags;
         this.authorName = authorName;
         this.postId = postId;
         this.createdAt = createdAt;
