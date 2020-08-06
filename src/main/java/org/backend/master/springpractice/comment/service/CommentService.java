@@ -1,8 +1,8 @@
 package org.backend.master.springpractice.comment.service;
 
 import lombok.RequiredArgsConstructor;
-import org.backend.master.springpractice.comment.controller.CommentRequest;
-import org.backend.master.springpractice.comment.controller.CommentResponse;
+import org.backend.master.springpractice.comment.controller.dto.CommentRequest;
+import org.backend.master.springpractice.comment.controller.dto.CommentResponse;
 import org.backend.master.springpractice.comment.domain.Comment;
 import org.backend.master.springpractice.comment.repository.CommentRepository;
 import org.backend.master.springpractice.comment.util.NameTagExtractor;

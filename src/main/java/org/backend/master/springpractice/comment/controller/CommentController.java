@@ -1,5 +1,7 @@
 package org.backend.master.springpractice.comment.controller;
 
+import org.backend.master.springpractice.comment.controller.dto.CommentRequest;
+import org.backend.master.springpractice.comment.controller.dto.CommentResponse;
 import org.backend.master.springpractice.comment.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 

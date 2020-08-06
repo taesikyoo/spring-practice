@@ -1,8 +1,8 @@
 package org.backend.master.springpractice.post.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.backend.master.springpractice.comment.controller.CommentRequest;
-import org.backend.master.springpractice.comment.controller.CommentResponse;
+import org.backend.master.springpractice.comment.controller.dto.CommentRequest;
+import org.backend.master.springpractice.comment.controller.dto.CommentResponse;
 import org.backend.master.springpractice.comment.service.CommentService;
 import org.backend.master.springpractice.post.domain.Post;
 import org.backend.master.springpractice.post.service.PostService;

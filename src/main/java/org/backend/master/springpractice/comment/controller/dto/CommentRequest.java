@@ -1,4 +1,4 @@
-package org.backend.master.springpractice.comment.controller;
+package org.backend.master.springpractice.comment.controller.dto;
 
 import lombok.Builder;
 import lombok.Getter;
