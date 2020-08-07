@@ -23,6 +23,8 @@ public class CommentService {
 
     public CommentResponse create(HttpSession session, Post post, CommentRequest request) {
         User author = (User) session.getAttribute("LOGIN_USER");
+        validateLoginUser(session);
+
         Comment comment = Comment.builder()
                 .content(request.getContent())
                 .author(author)
@@ -41,10 +43,9 @@ public class CommentService {
 
     @Transactional
     public CommentResponse update(HttpSession httpSession, Long id, CommentRequest request) {
-        Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 id의 comment가 존재하지 않습니다. id=" + id));
-
-        validateLoginUser(httpSession, comment);
+        Comment comment = findCommentById(id);
+        validateLoginUser(httpSession);
+        validateCorrectUser(httpSession, comment);
 
         comment.update(request.getContent());
 
@@ -52,19 +53,27 @@ public class CommentService {
     }
 
     public void delete(HttpSession httpSession, Long id) {
-        Comment comment = commentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 id의 comment가 존재하지 않습니다. id=" + id));
-
-        validateLoginUser(httpSession, comment);
+        Comment comment = findCommentById(id);
+        validateLoginUser(httpSession);
+        validateCorrectUser(httpSession, comment);
 
         commentRepository.delete(comment);
     }
 
-    private void validateLoginUser(HttpSession httpSession, Comment comment) {
+    private Comment findCommentById(Long id) {
+        return commentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 id의 comment가 존재하지 않습니다. id=" + id));
+    }
+
+    private void validateLoginUser(HttpSession httpSession) {
+        User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
+        if (loginUser == null) throw new IllegalArgumentException("로그인하지 않은 사용자입니다.");
+    }
+
+    private void validateCorrectUser(HttpSession httpSession, Comment comment) {
         User loginUser = (User) httpSession.getAttribute("LOGIN_USER");
         User author = comment.getAuthor();
-        if (loginUser == null) throw new IllegalArgumentException("로그인하지 않은 사용자입니다.");
-        if (!(author.getId().equals(loginUser.getId()))) throw new IllegalArgumentException("comment를 삭제할 권한이 없습니다.");
+        if (!(author.getId().equals(loginUser.getId()))) throw new IllegalArgumentException("사용자 권한이 없습니다.");
     }
 
     private CommentResponse getCommentResponse(Comment comment) {

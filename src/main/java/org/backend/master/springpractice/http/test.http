@@ -44,7 +44,7 @@ POST localhost:8080/posts/1/comments/add
 Content-Type: application/json
 
 {
-  "content": "#comment #123 #유태식#오태식 안녕하세요."
+  "content": "@comment @123 @유태식@오태식 안녕하세요."
 }
 
 ###
